@@ -22,4 +22,4 @@ jobs:
           script: |
             cd /home/ubuntu/monsite
             git pull origin main
-            sudo systemctl reload nginx
+            docker-compose up -d --build
