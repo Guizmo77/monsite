@@ -1,6 +1,6 @@
 cd /home/ubuntu/monsite
   git pull origin main
-  sudo systemctl reload nginxname: Deploy to EC2
+  sudo systemctl reload nginx name: Deploy to EC2
 
 on:
   push:
