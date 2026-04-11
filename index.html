@@ -2,19 +2,401 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Mon Serveur Web</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artemis II — Le retour de l'Humanité vers la Lune</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #1a1a2e; color: #eee; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .card { background: #16213e; padding: 40px; border-radius: 12px; text-align: center; border: 1px solid #0f3460; }
-        h1 { color: #e94560; }
-        p { color: #a8a8b3; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #0a0a1a;
+            color: #e0e0e0;
+        }
+
+        header {
+            background: linear-gradient(180deg, #000010 0%, #0a0a2e 100%);
+            text-align: center;
+            padding: 60px 20px;
+            border-bottom: 1px solid #1a1a4e;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '★ ✦ ★ ✦ ★ ✦ ★ ✦ ★ ✦ ★ ✦ ★ ✦ ★';
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: #ffffff22;
+            font-size: 12px;
+            letter-spacing: 8px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #e94560;
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        header h1 {
+            font-size: 3em;
+            color: #ffffff;
+            text-shadow: 0 0 30px #4466ff;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2em;
+            color: #8899cc;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            background: #0d0d2e;
+            padding: 25px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #1a1a4e;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #4488ff;
+        }
+
+        .stat-label {
+            font-size: 0.8em;
+            color: #6677aa;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section h2 {
+            font-size: 1.8em;
+            color: #4488ff;
+            border-left: 4px solid #e94560;
+            padding-left: 15px;
+            margin-bottom: 20px;
+        }
+
+        .section p {
+            line-height: 1.8;
+            color: #aabbcc;
+            margin-bottom: 15px;
+        }
+
+        .crew-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .crew-card {
+            background: #0d1533;
+            border: 1px solid #1a2a5e;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .crew-card:hover {
+            transform: translateY(-5px);
+            border-color: #4488ff;
+        }
+
+        .crew-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1a3a8a, #4466ff);
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+        }
+
+        .crew-name {
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 5px;
+        }
+
+        .crew-role {
+            font-size: 0.85em;
+            color: #4488ff;
+            margin-bottom: 5px;
+        }
+
+        .crew-agency {
+            font-size: 0.8em;
+            color: #6677aa;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            border-left: 2px solid #1a2a5e;
+        }
+
+        .timeline-item {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -39px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #4488ff;
+            border: 2px solid #0a0a1a;
+        }
+
+        .timeline-date {
+            font-size: 0.85em;
+            color: #e94560;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .timeline-title {
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 5px;
+        }
+
+        .timeline-desc {
+            font-size: 0.9em;
+            color: #8899aa;
+        }
+
+        .rocket-specs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+        }
+
+        .spec-card {
+            background: #0d1533;
+            border: 1px solid #1a2a5e;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .spec-title {
+            font-size: 0.8em;
+            color: #6677aa;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .spec-value {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #4488ff;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #0d1533, #1a2a5e);
+            border: 1px solid #4488ff44;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .highlight-box p {
+            color: #ccd9ff !important;
+            font-style: italic;
+            font-size: 1.1em;
+        }
+
+        footer {
+            background: #05050f;
+            text-align: center;
+            padding: 30px;
+            color: #445566;
+            font-size: 0.9em;
+            border-top: 1px solid #1a1a4e;
+        }
+
+        footer span {
+            color: #4488ff;
+        }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h1>🚀 Mon site DevOps - Docker</h1>
-        <p>Hébergé sur AWS EC2 · Nginx · Ubuntu</p>
-        <p>Déployé par <strong>Guillaume</strong></p>
+
+<header>
+    <div class="badge">✅ MISSION ACCOMPLIE — AVRIL 2026</div>
+    <h1>🚀 Artemis II</h1>
+    <p>Le premier vol habité vers la Lune depuis Apollo 17 en 1972</p>
+</header>
+
+<div class="stats-bar">
+    <div class="stat">
+        <div class="stat-number">10</div>
+        <div class="stat-label">Jours de mission</div>
     </div>
+    <div class="stat">
+        <div class="stat-number">4</div>
+        <div class="stat-label">Astronautes</div>
+    </div>
+    <div class="stat">
+        <div class="stat-number">6 545</div>
+        <div class="stat-label">km de la Lune</div>
+    </div>
+    <div class="stat">
+        <div class="stat-number">50+</div>
+        <div class="stat-label">Ans depuis Apollo 17</div>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="section">
+        <h2>La Mission</h2>
+        <p>Artemis II est la première mission habitée du programme Artemis de la NASA. Lancée le 1er avril 2026 depuis le Centre spatial Kennedy en Floride, elle a emmené quatre astronautes dans un voyage historique autour de la Lune, à bord du vaisseau Orion baptisé <strong style="color:#fff">Integrity</strong>.</p>
+        <p>Cette mission de test a permis de valider pour la première fois les systèmes de support-vie d'Orion avec un équipage à bord, ouvrant la voie aux futures missions d'alunissage Artemis III et IV.</p>
+        <div class="highlight-box">
+            <p>"L'humanité est retournée vers la Lune. Artemis II a emporté quatre astronautes plus loin de la Terre que n'importe quel être humain depuis plus d'un demi-siècle."</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>L'Équipage</h2>
+        <div class="crew-grid">
+            <div class="crew-card">
+                <div class="crew-avatar">👨‍🚀</div>
+                <div class="crew-name">Reid Wiseman</div>
+                <div class="crew-role">Commandant</div>
+                <div class="crew-agency">NASA</div>
+            </div>
+            <div class="crew-card">
+                <div class="crew-avatar">👨‍🚀</div>
+                <div class="crew-name">Victor Glover</div>
+                <div class="crew-role">Pilote</div>
+                <div class="crew-agency">NASA</div>
+            </div>
+            <div class="crew-card">
+                <div class="crew-avatar">👩‍🚀</div>
+                <div class="crew-name">Christina Koch</div>
+                <div class="crew-role">Spécialiste de mission</div>
+                <div class="crew-agency">NASA</div>
+            </div>
+            <div class="crew-card">
+                <div class="crew-avatar">👨‍🚀</div>
+                <div class="crew-name">Jeremy Hansen</div>
+                <div class="crew-role">Spécialiste de mission</div>
+                <div class="crew-agency">Agence Spatiale Canadienne</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Chronologie de la Mission</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-date">1er avril 2026</div>
+                <div class="timeline-title">🚀 Lancement</div>
+                <div class="timeline-desc">Décollage depuis le pas de tir LC-39B du Centre spatial Kennedy à 18h35 heure locale, à bord du lanceur SLS.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2 avril 2026</div>
+                <div class="timeline-title">🌍 Orbite haute</div>
+                <div class="timeline-desc">Orion placé en orbite terrestre haute à 70 000 km d'apogée pendant 24 heures — vérification complète de tous les systèmes.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">6 avril 2026</div>
+                <div class="timeline-title">🌕 Survol lunaire</div>
+                <div class="timeline-desc">Approche à 6 545 km de la surface lunaire. L'équipage capture des images historiques de la face cachée de la Lune, jamais vues par des humains auparavant. Une éclipse solaire rare observée depuis l'espace.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">8 avril 2026</div>
+                <div class="timeline-title">🛸 Retour vers la Terre</div>
+                <div class="timeline-desc">Allumage des propulseurs d'Orion pour initier le retour vers la Terre. Conférence de presse en direct avec l'équipage.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">11 avril 2026</div>
+                <div class="timeline-title">🌊 Amerrissage</div>
+                <div class="timeline-desc">Amerrissage réussi au large de San Diego dans l'océan Pacifique à 20h07 heure de l'Est. Mission accomplie !</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Les Véhicules</h2>
+        <div class="rocket-specs">
+            <div class="spec-card">
+                <div class="spec-title">Lanceur</div>
+                <div class="spec-value">SLS Block 1</div>
+            </div>
+            <div class="spec-card">
+                <div class="spec-title">Vaisseau</div>
+                <div class="spec-value">Orion "Integrity"</div>
+            </div>
+            <div class="spec-card">
+                <div class="spec-title">Hauteur SLS</div>
+                <div class="spec-value">98 mètres</div>
+            </div>
+            <div class="spec-card">
+                <div class="spec-title">Poussée au décollage</div>
+                <div class="spec-value">39,1 MN</div>
+            </div>
+            <div class="spec-card">
+                <div class="spec-title">Charge utile OTL</div>
+                <div class="spec-value">27 tonnes</div>
+            </div>
+            <div class="spec-card">
+                <div class="spec-title">Pas de tir</div>
+                <div class="spec-value">LC-39B, KSC</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Et après ?</h2>
+        <p>Artemis II ouvre la voie à une série de missions de plus en plus ambitieuses. Artemis III et IV prévoient un alunissage, avec pour objectif à long terme l'établissement d'une base permanente sur la Lune — tremplin vers Mars.</p>
+        <p>Le programme Artemis représente une nouvelle ère de l'exploration spatiale humaine, en partenariat avec des agences spatiales internationales et des entreprises privées comme SpaceX et Boeing.</p>
+    </div>
+
+</div>
+
+<footer>
+    Page réalisée par <span>Guillaume</span> dans le cadre de son parcours DevOps — Hébergée sur AWS EC2 🚀
+</footer>
+
 </body>
 </html>
