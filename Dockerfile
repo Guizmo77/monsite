@@ -1,8 +1,7 @@
-# Image de base : Nginx officiel
 FROM nginx:alpine
 
-# Copie ton site dans le dossier Nginx du conteneur
 COPY index.html /usr/share/nginx/html/index.html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Expose le port 80
 EXPOSE 80
+EXPOSE 443
