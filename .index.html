@@ -1,0 +1,22 @@
+sudo tee /var/www/html/index.html << 'EOF'
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Mon Serveur Web</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #1a1a2e; color: #eee; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .card { background: #16213e; padding: 40px; border-radius: 12px; text-align: center; border: 1px solid #0f3460; }
+        h1 { color: #e94560; }
+        p { color: #a8a8b3; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>🚀 Mon premier site DevOps V2</h1>
+        <p>Hébergé sur AWS EC2 · Nginx · Ubuntu</p>
+        <p>Déployé par <strong>Guillaume</strong></p>
+    </div>
+</body>
+</html>
+EOF

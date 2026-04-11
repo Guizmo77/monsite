@@ -22,5 +22,6 @@ jobs:
           script: |
              cd /home/ubuntu/monsite
              git pull origin main
+             sudo systemctl stop nginx
              docker-compose down
              docker-compose up -d --build
